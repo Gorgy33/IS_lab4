@@ -16,11 +16,11 @@ class DBConnector:
         self.config = db_config
         self.__instance__ = self
 
-    def execute_query(self, query: str, return_value=True) -> list:
+    def execute_query(self, query: str, return_value: bool = True, params: list = None) -> list:
         logging.info(query)
         try:
             with pg_simple.PgSimple(self.connection_pool) as _db:
-                execute = _db.execute(query)
+                execute = _db.execute(query, params)
                 _db.commit()
                 if return_value:
                     return execute.fetchall()
@@ -38,15 +38,17 @@ class DBConnector:
     def all_select_execute(self, query):
         return self.execute_query(query)
 
-    def one_select_execute(self, query):
-        result = self.execute_query(query)
+    def one_select_execute(self, query, params):
+        result = self.execute_query(query, params=params)
         if len(result) == 0:
             return None
         return result[0]
 
-    def insert_or_update_execute(self, query):
-        self.execute_query(query, return_value=False)
+    def insert_or_update_execute(self, query, params):
+        self.execute_query(query, return_value=False, params=params)
         return "Ok"
 
     def get_common_data(self, field):
-        return self.one_select_execute(f'SELECT value FROM common WHERE "field" = "{field}";')
+        statement = 'SELECT value FROM common WHERE "field" = "%s";'
+        params = [field]
+        return self.one_select_execute(statement, params=params)

@@ -26,8 +26,17 @@ class CreateUserInputSchema(Schema):
     name = fields.String(required=True, validate=Length(min=6, max=20))
     password = fields.String(required=True, validate=new_password_check)
     role = fields.String(required=True, validate=role_check)
+    nickname = fields.String(required=True, validate=Length(min=1))
 
 
 class LoginInputSchema(Schema):
     name = fields.String(required=True, validate=login_check)
     password = fields.String(required=True)
+
+
+class AddNoteInputSchema(Schema):
+    text = fields.String(required=True, validate=Length(min=1, max=100))
+
+
+class DeleteNoteInputScheme(Schema):
+    id = fields.String(required=True)

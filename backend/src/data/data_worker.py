@@ -20,14 +20,34 @@ class DataWorker:
         return DataWorker.__instance__
 
     def get_user_by_name(self, name):
-        return self.db_connector.one_select_execute(f"SELECT * FROM users WHERE name = '{name}';")
+        statement = "SELECT * FROM users WHERE name = %s;"
+        params = [name]
+        return self.db_connector.one_select_execute(statement, params)
 
     def get_user(self, user_id):
-        return self.db_connector.one_select_execute(f"SELECT id, name, role FROM users WHERE id = '{user_id}';")
+        statement = "SELECT id, name, role, nickname FROM users WHERE id = %s;"
+        params = [user_id]
+        return self.db_connector.one_select_execute(statement, params)
 
     def get_users(self):
-        return self.db_connector.all_select_execute("SELECT id, name, role FROM users;")
+        statement = "SELECT id, name, role, nickname FROM users;"
+        return self.db_connector.all_select_execute(statement)
 
-    def insert_user(self, name, password_hash, role):
-        return self.db_connector.insert_or_update_execute(
-            f"INSERT INTO users VALUES (default, '{password_hash}', '{name}', '{role}');")
+    def insert_user(self, name, password_hash, role, nickname):
+        statement = 'INSERT INTO users VALUES (default, %s, %s, %s, %s);'
+        params = [password_hash, name, role, nickname]
+        return self.db_connector.insert_or_update_execute(statement, params)
+
+    def get_notes(self):
+        statement = "SELECT text, author FROM notes;"
+        return self.db_connector.all_select_execute(statement)
+
+    def insert_notes(self, text, author):
+        statement = 'INSERT INTO notes VALUES (default, %s, %s);'
+        params = [text, author]
+        return self.db_connector.insert_or_update_execute(statement, params)
+
+    def delete_note(self, note_id):
+        statement = 'DELETE FROM notes WHERE id = %s'
+        params = [note_id]
+        return self.db_connector.insert_or_update_execute(statement, params)

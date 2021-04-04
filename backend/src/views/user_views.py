@@ -1,13 +1,12 @@
 import logging
 
-from flask import make_response, render_template, request, jsonify
+from flask import make_response, render_template, request, jsonify, redirect, url_for, flash
 from flask.views import MethodView
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 
 from backend.src.auth import roles_restriction
 from backend.src.data.context import Context
-from backend.src.utils import hash_id
 from backend.src.views.schemas import CreateUserInputSchema
 
 
@@ -17,7 +16,7 @@ class GetUsers(MethodView):
     @roles_restriction(roles=["ADMIN"])
     def get(self):
         users = Context.get_db_worker().get_users()
-        items = [{"name": user.name, "role": user.role, "id": hash_id(user.id)} for user in users]
+        items = [{"name": user.name, "role": user.role} for user in users]
         return make_response(render_template("users.html", items=items, role=current_user.get_role()))
 
 
@@ -34,16 +33,25 @@ class CreateUser(MethodView):
     @login_required
     @roles_restriction(roles=["ADMIN"])
     def post(self):
-        data = request.args
+        data = {
+            'name': request.form["name"],
+            'password': request.form["password"],
+            'role': request.form["role"],
+            'nickname': request.form["nickname"],
+        }
         errors = CreateUserInputSchema().validate(data)
         if errors:
-            return jsonify({"status": "Fail"})
+            flash(errors, category='error')
+            return redirect(url_for("users"))
         try:
-            return jsonify({"status": Context.get_db_worker().insert_user(
-                request.args["name"],
-                generate_password_hash(request.args["password"]),
-                request.args["role"]
-            )})
+            Context.get_db_worker().insert_user(
+                data["name"],
+                generate_password_hash(data["password"]),
+                data["role"],
+                data["nickname"],
+            )
+            return redirect(url_for("users"))
         except Exception as error:
             logging.exception(error)
-            return jsonify({"status": "Fail"})
+            flash('Something going wrong, sorry')
+            return redirect(url_for("users"))
