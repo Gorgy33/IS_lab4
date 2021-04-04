@@ -1,0 +1,105 @@
+* {
+    font-family: sans-serif;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #777777;
+}
+
+*:focus {
+    outline: none !important
+}
+
+body,
+html {
+    height: 100%;
+}
+
+.container {
+    background: #727477;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.form-login {
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 0 1000px #F7F7F7;
+    background: #F7F7F7;
+    width: 30%;
+}
+
+.form-login div {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+    height: 40px;
+    border-radius: 30px;
+    width: calc(90% - 50px);
+    border: 1px solid #ededed;
+    padding: 0 0 0 50px;
+    font-size: 14px;
+}
+
+input[type="text"] {
+    background: url("user.png") no-repeat left 10px center;
+    background-size: 25px;
+    background-color: #FFFFFF;
+}
+
+input[type="password"] {
+    margin-top: 15px;
+    background: url("block.png") no-repeat left 10px center;
+    background-size: 25px;
+    background-color: #FFFFFF;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border: 1px solid #bcbcbc;
+    box-shadow: 0 0 5px 1px #bcbcbc;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border: 1px solid #bcbcbc;
+}
+
+button {
+    background: #727477;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    color: white;
+    border: none;
+    height: 40px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 10px 0 0 0;
+    min-width: 60px;
+}
+
+button:hover {
+    background: #5f6063;
+    color: white;
+    box-shadow: 0 0 5px 1px #bcbcbc;
+    cursor: pointer;
+}
