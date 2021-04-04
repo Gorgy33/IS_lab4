@@ -34,7 +34,7 @@ class AddNote(MethodView):
     @login_required
     @roles_restriction(roles=["ADMIN", "USER"])
     def post(self):
-        data = {'text': request.form['data']}
+        data = {'text': request.form['text']}
         errors = AddNoteInputSchema().validate(data)
         if errors:
             flash(errors, category='error')

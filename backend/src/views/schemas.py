@@ -1,6 +1,7 @@
+import re
 from marshmallow import Schema, fields, ValidationError
 from marshmallow.validate import Length
-import re
+from backend.src.data.context import Context
 
 
 def new_password_check(password: str):
@@ -22,8 +23,17 @@ def login_check(login: str):
         raise ValidationError('Login should not contain spaces')
 
 
+def new_login_check(login: str):
+    users = Context.get_db_worker().get_users()
+    users = [user.login for user in users]
+    if not 6 < len(login) < 20:
+        raise ValidationError('Login length should be 6 or more symbols bt less then 20')
+    if login in users:
+        raise ValidationError('Login should be unique')
+
+
 class CreateUserInputSchema(Schema):
-    name = fields.String(required=True, validate=Length(min=6, max=20))
+    name = fields.String(required=True, validate=new_login_check)
     password = fields.String(required=True, validate=new_password_check)
     role = fields.String(required=True, validate=role_check)
     nickname = fields.String(required=True, validate=Length(min=1))

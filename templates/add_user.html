@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-    <form action="{{ url_for('save_user') }}" method="post" class="user">
+    <form action="{{ url_for('add_user') }}" method="post" class="user">
         <div>
             <label>Имя: </label>
             <input type="text" name="nickname" requied />
@@ -13,7 +13,7 @@
         </div>
         <div>
             <label>Пароль: </label>
-            <input type="password" name="psw" value="" requied />
+            <input type="password" name="password" value="" requied />
         </div>
         <div>
             <label>Роль: </label>

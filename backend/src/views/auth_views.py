@@ -23,7 +23,7 @@ class Login(MethodView):
 
         user = Context.get_db_worker().get_user_by_name(data["name"])
 
-        if user and check_password_hash(user.pass_hash, data["password"]):
+        if user and check_password_hash(user.password_hash, data["password"]):
             user_login = UserLogin().create(user)
             login_user(user_login)
             return redirect(request.args.get("next") or url_for("index"))
