@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="container">
+    <form action="{{ url_for('save_user') }}" method="post" class="user">
+        <div>
+            <label>Имя: </label>
+            <input type="text" name="nickname" requied />
+        </div>
+        <div>
+            <label>Логин: </label>
+            <input type="text" name="name" requied />
+        </div>
+        <div>
+            <label>Пароль: </label>
+            <input type="password" name="psw" value="" requied />
+        </div>
+        <div>
+            <label>Роль: </label>
+            <select name="role">
+                <option value="ADMIN"> Администратор </option>
+                <option value="USER" selected> Пользователь </option>
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="Сохранить" />
+        </div>
+    </form>
+</div>
+{% endblock %}

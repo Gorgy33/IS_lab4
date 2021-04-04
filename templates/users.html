@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+    {% if items %}
+        <div>
+            <table class="users-table">
+                <thead>
+                <tr>
+                    <th> Логин пользователя </th>
+                    <th> Имя пользователя </th>
+                    <th> Роль </th>
+                </tr>
+
+                </thead>
+
+                {% for item in items %}
+                <tbody>
+                    <tr style="width: auto">
+                        <td> {{ item.name }} </td>
+                        <td> {{ item.nickname }}</td>
+                        <td> {{ item.role }} </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p> Users not found! </p>
+    {% endif %}
+    <div class="add-user-button">
+        <a href="{{ url_for('add_user') }}"> Добавить пользователя </a>
+    </div>
+{% endblock %}
