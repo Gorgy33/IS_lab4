@@ -1,4 +1,4 @@
-from flask import redirect, url_for, request, make_response, render_template, flash
+from flask import redirect, url_for, request, make_response, render_template
 from flask.views import MethodView
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.security import check_password_hash
@@ -8,7 +8,6 @@ from backend.src.data.context import Context
 
 
 class Login(MethodView):
-
     def post(self):
         if current_user.is_authenticated:
             return redirect(url_for("index"))
@@ -33,5 +32,4 @@ class Logout(MethodView):
     @login_required
     def get(self):
         logout_user()
-        flash("Вы вышли из аккаунта", "success")
         return redirect(url_for('logon'))

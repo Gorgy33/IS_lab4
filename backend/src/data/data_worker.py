@@ -13,9 +13,6 @@ class DataWorker:
     def get_secret_key(self):
         return self.db_connector.get_common_data(field="SECRET_KEY").value
 
-    def get_data_pusher_token(self):
-        return self.db_connector.get_common_data(field="DATA_PUSHER_TOKEN").value
-
     @staticmethod
     def get_instance(*args):
         if not DataWorker.__instance__:
@@ -24,3 +21,13 @@ class DataWorker:
 
     def get_user_by_name(self, name):
         return self.db_connector.one_select_execute(f"SELECT * FROM users WHERE name = '{name}';")
+
+    def get_user(self, user_id):
+        return self.db_connector.one_select_execute(f"SELECT id, name, role FROM users WHERE id = '{user_id}';")
+
+    def get_users(self):
+        return self.db_connector.all_select_execute("SELECT id, name, role FROM users;")
+
+    def insert_user(self, name, password_hash, role):
+        return self.db_connector.insert_or_update_execute(
+            f"INSERT INTO users VALUES (default, '{password_hash}', '{name}', '{role}');")
