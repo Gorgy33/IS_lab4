@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="container">
+    <form action="{{ url_for('add_note') }}" method="post" class="add-note">
+        <div class="add-text">
+                <div>Текст: </div>
+                <textarea name="text" requied /></textarea> </div>
+        <div>
+            <input type="submit" value="Сохранить" />
+        </div>
+    </form>
+</div>
+{% endblock %}
