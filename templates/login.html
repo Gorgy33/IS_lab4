@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base_login.html' %}
 
-</body>
-</html>
+{% block content %}
+    <div class="container">
+        <div class="form-login">
+            <form action="/login" method="post" class="form-contact">
+               <div>
+                <input type="text" name="name" requied value="" placeholder="Логин" /></div>
+                <div>
+                <input type="password" name="psw" requied value="" placeholder="Пароль" /></div>
+                <div><button type="submit">Войти</button></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
