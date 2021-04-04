@@ -17,6 +17,11 @@ def role_check(role: str):
         raise ValidationError('Invalid role')
 
 
+def login_check(login: str):
+    if re.search(r'\s', login):
+        raise ValidationError('Login should not contain spaces')
+
+
 class CreateUserInputSchema(Schema):
     name = fields.String(required=True, validate=Length(min=6, max=20))
     password = fields.String(required=True, validate=new_password_check)
@@ -24,5 +29,5 @@ class CreateUserInputSchema(Schema):
 
 
 class LoginInputSchema(Schema):
-    name = fields.String(required=True)
+    name = fields.String(required=True, validate=login_check)
     password = fields.String(required=True)

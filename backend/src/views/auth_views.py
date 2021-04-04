@@ -5,16 +5,25 @@ from werkzeug.security import check_password_hash
 
 from backend.src.auth import UserLogin
 from backend.src.data.context import Context
+from backend.src.views.schemas import LoginInputSchema
 
 
 class Login(MethodView):
     def post(self):
         if current_user.is_authenticated:
             return redirect(url_for("index"))
+        data = {
+            'name': request.form["name"],
+            'password': request.form["psw"]
+        }
 
-        user = Context.get_db_worker().get_user_by_name(request.form["name"])
+        errors = LoginInputSchema().validate(data)
+        if errors:
+            return make_response(render_template("user_not_found.html"))
 
-        if user and check_password_hash(user.pass_hash, request.form["psw"]):
+        user = Context.get_db_worker().get_user_by_name(data["name"])
+
+        if user and check_password_hash(user.pass_hash, data["password"]):
             user_login = UserLogin().create(user)
             login_user(user_login)
             return redirect(request.args.get("next") or url_for("index"))
