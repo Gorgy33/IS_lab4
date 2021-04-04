@@ -164,3 +164,40 @@ nav a:hover {
     padding: 4px;
     border-radius: 4px;
 }
+
+.add-note {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+}
+
+.add-text {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 4px;
+}
+
+.add-note p {
+    width: 100%;
+    padding: 4px;
+
+}
+
+.add-note textarea {
+    height: 100px;
+    padding: 4px;
+    width: 100%;
+    margin: 4px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.add-note input[type="submit"] {
+    width: 100px;
+    height: 30px;
+}
+
+.add-note input[type="submit"]:hover {
+    cursor: pointer;
+}
