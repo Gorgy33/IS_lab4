@@ -24,10 +24,6 @@ def link_urls(app):
                      view_func=GetUsers.as_view(name='users'),
                      methods=['GET'])
 
-    app.add_url_rule("/save_user",
-                     view_func=SaveUser.as_view(name='save_user'),
-                     methods=['POST'])
-
     app.add_url_rule("/add_user",
                      view_func=AddUser.as_view(name='add_user'),
                      methods=['GET'])
@@ -42,7 +38,7 @@ def link_urls(app):
 
     app.add_url_rule("/add_note",
                      view_func=AddNote.as_view(name='add_note'),
-                     methods=['POST'])
+                     methods=['GET', 'POST'])
 
     app.add_url_rule("/delete_note",
                      view_func=DeleteNote.as_view(name='delete_note'),
