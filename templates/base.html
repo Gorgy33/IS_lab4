@@ -9,7 +9,7 @@
 <body>
     <nav>
         <div class="left-nav">
-            <a href="{{ url_for('index') }}" class="active">Главная</a>
+            <a href="{{ url_for('note_list') }}" class="active">Главная</a>
         </div>
         <div class="right-nav">
             {% if role == 'ADMIN' %}
@@ -18,6 +18,17 @@
             <a href="{{ url_for('logout') }}" class="exit" >Выход</a>
         </div>
     </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+        {% for mes in message.values() %}
+      <li class="{{ category }}">{{ mes[0] }}</li>
+            {% endfor %}
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 {% block content %}
 {% endblock %}
 </body>

@@ -81,7 +81,7 @@ input[type="password"]:hover {
     border: 1px solid #bcbcbc;
 }
 
-button {
+button, .form-login a {
     background: #727477;
     display: flex;
     justify-content: center;

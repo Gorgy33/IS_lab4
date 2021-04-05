@@ -39,7 +39,7 @@ class AddUser(MethodView):
         errors = CreateUserInputSchema().validate(data)
         if errors:
             flash(errors, category='error')
-            return redirect(url_for("users"))
+            return redirect(url_for("add_user"))
         try:
             Context.get_db_worker().insert_user(
                 data["name"],

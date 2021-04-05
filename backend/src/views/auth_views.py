@@ -11,7 +11,7 @@ from backend.src.views.schemas import LoginInputSchema
 class Login(MethodView):
     def post(self):
         if current_user.is_authenticated:
-            return redirect(url_for("index"))
+            return redirect(url_for("note_list"))
         data = {
             'name': request.form["name"],
             'password': request.form["psw"]
@@ -26,7 +26,7 @@ class Login(MethodView):
         if user and check_password_hash(user.password_hash, data["password"]):
             user_login = UserLogin().create(user)
             login_user(user_login)
-            return redirect(request.args.get("next") or url_for("index"))
+            return redirect(request.args.get("next") or url_for("note_list"))
         return make_response(render_template("user_not_found.html"))
 
     def get(self):

@@ -91,10 +91,16 @@ nav a:hover {
     min-width: 70px;
 }
 
+.error {
+    color: red;
+    padding: 4px;
+}
+
 .container {
     display: flex;
     height: calc(100% - 100px);
-    justify-content: space-between;
+    justify-content: flex-start;
+    flex-flow: column wrap;
     padding: 8px 8px;
     width: 100%;
 }
@@ -117,6 +123,7 @@ nav a:hover {
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 4px;
     font-size: 16px;
 }
