@@ -1,6 +1,6 @@
 from backend.src.views.auth_views import Login, Logout
 from backend.src.views.user_views import GetUsers, AddUser
-from backend.src.views.common_views import Base, GetNoteList, AddNote, DeleteNote
+from backend.src.views.common_views import GetNoteList, AddNote, DeleteNote
 
 
 def link_urls(app):
@@ -23,10 +23,6 @@ def link_urls(app):
     app.add_url_rule("/add_user",
                      view_func=AddUser.as_view(name='add_user'),
                      methods=['GET', 'POST'])
-
-    app.add_url_rule("/index",
-                     view_func=Base.as_view(name='index'),
-                     methods=['GET'])
 
     app.add_url_rule("/notes",
                      view_func=GetNoteList.as_view(name='note_list'),

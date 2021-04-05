@@ -31,7 +31,7 @@ class Login(MethodView):
 
     def get(self):
         if current_user.is_authenticated:
-            return redirect(url_for("index"))
+            return redirect(url_for("note_list"))
         return make_response(render_template("login.html"))
 
 

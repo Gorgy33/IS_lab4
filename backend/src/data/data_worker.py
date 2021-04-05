@@ -20,12 +20,12 @@ class DataWorker:
         return DataWorker.__instance__
 
     def get_user_by_name(self, name):
-        statement = "SELECT * FROM users WHERE login = %s;"
+        statement = "SELECT * FROM users WHERE (login = %s);"
         params = [name]
         return self.db_connector.one_select_execute(statement, params)
 
     def get_user(self, user_id):
-        statement = "SELECT id, login, role, nickname FROM users WHERE id = %s;"
+        statement = "SELECT id, login, role, nickname FROM users WHERE (id = %s);"
         params = [user_id]
         return self.db_connector.one_select_execute(statement, params)
 
@@ -48,6 +48,6 @@ class DataWorker:
         return self.db_connector.insert_or_update_execute(statement, params)
 
     def delete_note(self, note_id):
-        statement = 'DELETE FROM notes WHERE id = %s'
+        statement = 'DELETE FROM notes WHERE (id = %s);'
         params = [note_id]
         return self.db_connector.insert_or_update_execute(statement, params)

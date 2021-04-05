@@ -7,14 +7,6 @@ from backend.src.data.context import Context
 from backend.src.views.schemas import AddNoteInputSchema, DeleteNoteInputScheme
 
 
-class Base(MethodView):
-
-    @login_required
-    @roles_restriction(roles=["ADMIN", "USER"])
-    def get(self):
-        return make_response(render_template("base.html", role=current_user.get_role()))
-
-
 class GetNoteList(MethodView):
 
     @login_required

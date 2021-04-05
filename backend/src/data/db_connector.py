@@ -49,6 +49,6 @@ class DBConnector:
         return "Ok"
 
     def get_common_data(self, field):
-        statement = 'SELECT value FROM common WHERE field = %s;'
+        statement = 'SELECT value FROM common WHERE (field = %s);'
         params = [field]
         return self.one_select_execute(statement, params=params)

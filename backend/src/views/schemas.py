@@ -27,9 +27,14 @@ def new_login_check(login: str):
     users = Context.get_db_worker().get_users()
     users = [user.login for user in users]
     if not 6 < len(login) < 20:
-        raise ValidationError('Login length should be 6 or more symbols bt less then 20')
+        raise ValidationError('Login length should be 6 or more symbols but less then 20')
     if login in users:
         raise ValidationError('Login should be unique')
+
+
+def id_check(id: str):
+    if not id.isdigit():
+        raise ValidationError('ID should be digital')
 
 
 class CreateUserInputSchema(Schema):
@@ -49,4 +54,4 @@ class AddNoteInputSchema(Schema):
 
 
 class DeleteNoteInputScheme(Schema):
-    id = fields.String(required=True)
+    id = fields.String(required=True, validate=id_check)
