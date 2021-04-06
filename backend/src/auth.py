@@ -27,6 +27,6 @@ def roles_restriction(roles):
         def wrapper(*args, **kwargs):
             if current_user.get_role() in roles:
                 return f(*args, **kwargs)
-            return make_response("Access denied", 401)
+            return make_response("Not Found", 404)
         return wrapper
     return decorator
